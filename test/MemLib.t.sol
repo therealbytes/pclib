@@ -29,7 +29,7 @@ contract GatewayTest is Test {
         uint256 p2 = p1;
         p1 = MemLib.putBytes(p1, value);
         MemLib.setFmp(p1);
-        assertEq(p2 + 0x20 + 0x20 * ((value.length + 0x1f) / 0x20), p1, "[put] pointer mismatch");
+        assertEq(p1, p2 + 0x20 + 0x20 * ((value.length + 0x1f) / 0x20), "[put] pointer mismatch");
         bytes memory v;
         (v, p2) = MemLib.getBytes(p2);
         assertEq(value, v, "value mismatch");
