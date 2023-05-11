@@ -27,7 +27,7 @@ library Caller {
         uint256 inSize,
         uint256 outOffset,
         uint256 outSize
-    ) internal {
+    ) internal view {
         assembly {
             if iszero(
                 staticcall(_gas, to, inOffset, inSize, outOffset, outSize)
