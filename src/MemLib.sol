@@ -88,7 +88,7 @@ library MemLib {
         return p;
     }
 
-    function getBytes(uint256 p) internal pure returns (bytes memory, uint256) {
+    function copyBytes(uint256 p) internal pure returns (bytes memory, uint256) {
         (uint256 length, ) = getUint(p);
         bytes memory x = new bytes(length);
         uint256 wordCount = (length + 0x1f) / 0x20;
@@ -101,6 +101,16 @@ library MemLib {
             (value, p) = getBytes32(p);
             xp = putBytes32(xp, value);
         }
+        return (x, p);
+    }
+    
+    function refBytes(uint256 p) internal pure returns (bytes memory, uint256) {
+        bytes memory x;
+        assembly {
+            x := p
+        }
+        uint256 wordCount = (x.length + 0x1f) / 0x20;
+        p += 0x20 * (wordCount + 1);
         return (x, p);
     }
 }
