@@ -1,9 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.13;
 
-import {MemLib} from "./MemLib.sol";
-
-contract Caller {
+library Caller {
     function call(
         uint256 _gas,
         address to,
@@ -12,7 +10,7 @@ contract Caller {
         uint256 inSize,
         uint256 outOffset,
         uint256 outSize
-    ) public {
+    ) internal {
         assembly {
             if iszero(
                 call(_gas, to, value, inOffset, inSize, outOffset, outSize)
@@ -29,7 +27,7 @@ contract Caller {
         uint256 inSize,
         uint256 outOffset,
         uint256 outSize
-    ) public {
+    ) internal {
         assembly {
             if iszero(
                 staticcall(_gas, to, inOffset, inSize, outOffset, outSize)
