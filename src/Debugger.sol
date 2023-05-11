@@ -4,7 +4,7 @@ pragma solidity ^0.8.13;
 import {Caller} from "./Caller.sol";
 import {MemLib} from "./MemLib.sol";
 
-contract Debugger is Caller {
+contract Debugger  {
     function debug(
         address to,
         uint256 _gas,
@@ -13,7 +13,7 @@ contract Debugger is Caller {
     ) public returns (bytes memory) {
         uint256 p0 = MemLib.getFmp();
         uint256 p1 = MemLib.putBytes(p0, input);
-        call(_gas, to, 0, p0, p1 - p0, p0 + 0x20, outSize);
+        Caller.call(_gas, to, 0, p0, p1 - p0, p0 + 0x20, outSize);
         MemLib.putUint(p0, outSize);
         bytes memory output;
         assembly {
